@@ -1,6 +1,7 @@
 package med.voll.api.direccion;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +12,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Direccion {
 
+    @NotBlank
     private String calle;
+    
+    @NotBlank
     private String numero;
+    
+    @NotBlank
     private String complemento;
+    
+    @NotBlank
     private String distrito;
+    
+    @NotBlank
     private String ciudad;
 
     public Direccion(DatosDireccion direccion) {
