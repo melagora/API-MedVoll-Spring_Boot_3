@@ -27,4 +27,11 @@ public class Medico {
     @Embedded
     private Direccion direccion;
 
+    public Medico(DatosRegistroMedico datosRegistroMedico) {
+        this.nombre = datosRegistroMedico.nombre();
+        this.email = datosRegistroMedico.email();
+        this.documento = datosRegistroMedico.documento();
+        this.especialidad = datosRegistroMedico.especialidad();
+        this.direccion = new Direccion(datosRegistroMedico.direccion());
+    }
 }
