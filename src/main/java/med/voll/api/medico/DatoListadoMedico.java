@@ -1,6 +1,4 @@
-package med.voll.api.controller;
-
-import med.voll.api.medico.Medico;
+package med.voll.api.medico;
 
 public record DatoListadoMedico (String nombre, String especialidad, String documento, String email) {
 
