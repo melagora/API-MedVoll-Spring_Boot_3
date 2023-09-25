@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.medico.DatoListadoMedico;
+import med.voll.api.medico.DatosActualizarMedico;
 import med.voll.api.medico.DatosRegistroMedico;
 import med.voll.api.medico.Medico;
 import med.voll.api.medico.MedicoRepository;
@@ -33,4 +36,12 @@ public class MedicoController{
     public List<DatoListadoMedico> listadoMedicos(){
         return medicoRepository.findAll().stream().map(DatoListadoMedico::new).toList();
     }
+
+    @PutMapping
+    @Transactional
+    public void actualizarMedico (@RequestBody @Valid DatosActualizarMedico datosActualizarMedico){
+        Medico medico = medicoRepository.getReferenceById(datosActualizarMedico.id());
+        medico.actualizarDatos(datosActualizarMedico);
+    }
+
 }
