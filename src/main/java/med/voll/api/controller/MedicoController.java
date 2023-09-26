@@ -52,6 +52,7 @@ public class MedicoController {
         // URL donde encontrar al medico
     }
 
+    //Retorno dentro de un wrapper (envoltura) 
     @GetMapping
     public ResponseEntity<Page<DatoListadoMedico>>  listadoMedicos(Pageable pageable) {
         // return
