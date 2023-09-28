@@ -14,7 +14,14 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException{
-        System.out.println("El filtro esta siendo llamado");
+
+        //Obtener el token del header
+        var token = request.getHeader("Authorization");//.replace("Bearer", "");
+        if (token == null || token == ""){
+            throw new RuntimeException("El token enviado no es valido");
+        }
+        token = token.replace("Bearer", "");
+        System.out.println(token);
         filterChain.doFilter(request, response);
     }
 
