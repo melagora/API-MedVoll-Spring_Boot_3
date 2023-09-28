@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import med.voll.api.infra.security.TokenService;
 import med.voll.api.usuario.DatosAutenticacionUsuario;
 
 @RestController
@@ -20,11 +21,15 @@ public class AutenticacionController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity autenticarUsuario(@RequestBody @Valid DatosAutenticacionUsuario datosAutenticacionUsuario){
-        Authentication token = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
+        Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
         datosAutenticacionUsuario.clave());
-        authenticationManager.authenticate(token);
-        return ResponseEntity.ok().build();
+        authenticationManager.authenticate(authToken);
+        var JWTtoken = tokenService.generarToken();
+        return ResponseEntity.ok(JWTtoken);
     }
 }
