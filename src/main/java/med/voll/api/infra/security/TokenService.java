@@ -36,6 +36,9 @@ public class TokenService {
     }
 
     public String getSubject(String token) {
+        if(token == null){
+            throw new RuntimeException();
+        }
         DecodedJWT verifier = null;
         try {
             Algorithm algorithm = Algorithm.HMAC256(apiSecret);
