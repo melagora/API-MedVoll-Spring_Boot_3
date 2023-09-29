@@ -18,16 +18,17 @@ public class SecurityFilter extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException{
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
 
-        //Obtener el token del header
-        var token = request.getHeader("Authorization");//.replace("Bearer", "");
-        if (token == null || token == ""){
-            throw new RuntimeException("El token enviado no es valido");
+        // Obtener el token del header
+        var token = request.getHeader("Authorization");// .replace("Bearer", "");
+        if (token != null) {
+            token = token.replace("Bearer", "");
+            System.out.println(token);
+            System.out.println(tokenService.getSubject(token));
+
         }
-        token = token.replace("Bearer", "");
-        System.out.println(token);
-        System.out.println(tokenService.getSubject(token));
         filterChain.doFilter(request, response);
     }
 
